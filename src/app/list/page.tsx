@@ -1,0 +1,1 @@
+const ListPage = () => <div>hi</div>

@@ -1,0 +1,1 @@
+const SlugPage= () => <div>Product</div>
