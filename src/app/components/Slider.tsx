@@ -48,10 +48,10 @@ export const Slider = () => {
       >
         {slides.map((slide) => (
           <div
-            className={`${slide.bg} w-screen h-full flex flex-col gap-16 xl:flex-row`}
+            className={`${slide.bg} w-screen h-full flex flex-col gap-16 lg:flex-row xl:flex-row`}
             key={slide.id}
           >
-            <div className="h-1/2 xl:w-1/2 xl:h-full flex flex-col items-center justify-center gap-8 2xl:gap-12 text-center">
+            <div className="h-1/2 lg:h-full lg:w-1/2 xl:w-1/2 xl:h-full flex flex-col items-center justify-center gap-8 2xl:gap-12 text-center">
               <h2 className="text-xl lg:text-3xl 2xl:text-5xl">
                 {slide.description}
               </h2>
@@ -64,7 +64,7 @@ export const Slider = () => {
                 </button>
               </Link>
             </div>
-            <div className="h-1/2 xl:w-1/2 relative xl:h-full">
+            <div className="h-1/2 lg:w-1/2 xl:w-1/2 relative lg:h-full xl:h-full">
               <Image src={slide.img} alt="" fill sizes="100%" />
             </div>
           </div>
