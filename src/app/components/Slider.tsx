@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import React, { useState } from "react"
-import Image from "next/image"
+import Link from "next/link";
+import React, { useState } from "react";
+import Image from "next/image";
 
-import { useEffect } from "react"
+import { useEffect } from "react";
 export const Slider = () => {
-  const [current, setCurrent] = useState(1)
+  const [current, setCurrent] = useState(0);
   const slides = [
     {
       id: 1,
@@ -25,32 +25,30 @@ export const Slider = () => {
       url: "/",
     },
     {
-      id: 2,
+      id: 3,
       title: "Mochichi",
       description: "Circle of friends",
       img: "https://anmeshop.com/cdn/shop/files/246120-4_jpg_1024x1024@2x.webp?v=1738721311",
       bg: "bg-gradient-to-r from-blue-50 to yellow-50",
       url: "/",
     },
-  ]
+  ];
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1))
-    }, 3000)
+      setCurrent((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    }, 8000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
   return (
     <div className="h-[calc(100vh-80px)] overflow-hidden">
       <div
         className="w-max h-full flex transtion-all ease-in-out duration-1000"
-        style={{ transform: `translateX(-${current * 100}vw` }}
-      >
+        style={{ transform: `translateX(-${current * 100}vw` }}>
         {slides.map((slide) => (
           <div
             className={`${slide.bg} w-screen h-full flex flex-col gap-16 lg:flex-row xl:flex-row`}
-            key={slide.id}
-          >
+            key={slide.id}>
             <div className="h-1/2 lg:h-full lg:w-1/2 xl:w-1/2 xl:h-full flex flex-col items-center justify-center gap-8 2xl:gap-12 text-center">
               <h2 className="text-xl lg:text-3xl 2xl:text-5xl">
                 {slide.description}
@@ -77,8 +75,7 @@ export const Slider = () => {
               current === index ? "scale-150" : ""
             }`}
             key={slide.id}
-            onClick={() => setCurrent(index)}
-          >
+            onClick={() => setCurrent(index)}>
             {current == index && (
               <div className="w-[6px] h-[6px] bg-gray-600 rounded-full"></div>
             )}
@@ -86,5 +83,5 @@ export const Slider = () => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
