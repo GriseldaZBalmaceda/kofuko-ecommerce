@@ -4,7 +4,7 @@ import Image from "next/image"
 import React from "react"
 import { Filter } from "../components/Filter"
 import { ProductList } from "../components/ProductList"
-const ListPage = () => {
+const ListPage = ({ searchParams }: { searchParams: "string" }) => {
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
       {/*CAMPAIGN */}
@@ -23,7 +23,7 @@ const ListPage = () => {
       </div>
       <Filter />
       <h1 className="text-xl mt-12 font-semibold">Collectibles</h1>
-      <ProductList />
+      <ProductList categoryId="0cfa4d6e-db3e-f303-64e8-9404a295fd94" />
     </div>
   )
 }
