@@ -9,11 +9,9 @@ export const SearchBar = () => {
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    console.log(formData, "formdata")
     const name = formData.get("name") as string
-    console.log(name)
     if (name) {
-      router.push(`/list?name=${name}`)
+      router.push(`/list?cat=${name}`)
     }
   }
   return (

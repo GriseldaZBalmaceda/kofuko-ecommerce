@@ -3,6 +3,8 @@ import { ProductList } from "./components/ProductList"
 import { Slider } from "./components/Slider"
 import { Suspense } from "react"
 const HomePage = async () => {
+  // const wixClient = await wixClientServer()
+  // const res = await wixClient.products.queryProducts().find()
   return (
     <div className="">
       <Slider />

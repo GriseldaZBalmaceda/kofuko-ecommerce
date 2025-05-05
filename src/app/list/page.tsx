@@ -1,10 +1,17 @@
-"use client"
-
 import Image from "next/image"
 import React from "react"
 import { Filter } from "../components/Filter"
 import { ProductList } from "../components/ProductList"
-const ListPage = ({ searchParams }: { searchParams: "string" }) => {
+import { wixClientServer } from "@/lib/wixClientServer"
+import { Suspense } from "react"
+
+const ListPage = async ({ searchParams }: { searchParams: any }) => {
+  const wixClient = await wixClientServer()
+  const category = await wixClient.collections.getCollectionBySlug(
+    searchParams.cat || "all-products"
+  )
+  // const response = await wixClient.
+
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
       {/*CAMPAIGN */}
@@ -23,7 +30,14 @@ const ListPage = ({ searchParams }: { searchParams: "string" }) => {
       </div>
       <Filter />
       <h1 className="text-xl mt-12 font-semibold">Collectibles</h1>
-      <ProductList categoryId="0cfa4d6e-db3e-f303-64e8-9404a295fd94" />
+      <Suspense fallback="...loading">
+        <ProductList
+          categoryId={
+            category.collection?._id || "00000000-000000-000000-000000000001"
+          }
+          searchParams={searchParams}
+        />
+      </Suspense>
     </div>
   )
 }

@@ -8,7 +8,6 @@ import { CartModal } from "./CartModal"
 export const NavIcons = () => {
   const [isProfileOpen, setProfileOpen] = useState(false)
   const [isCartOpen, setCartOpen] = useState(false)
-  console.log(isCartOpen)
   //Temp
   const router = useRouter()
   const isLoggedIn = false

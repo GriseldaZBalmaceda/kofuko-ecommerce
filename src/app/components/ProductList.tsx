@@ -3,15 +3,16 @@ import Link from "next/link"
 import React from "react"
 import { wixClientServer } from "@/lib/wixClientServer"
 import { products } from "@wix/stores"
-import { DOMPurify } from "isomorphic-dompurify"
 
 const PRODUCT_PER_PAGE = 20
 export const ProductList = async ({
   categoryId,
   limit,
+  searchParams,
 }: {
   categoryId: string
   limit?: number
+  searchParams?: any
 }) => {
   const wixClient = await wixClientServer()
   const res = await wixClient.products
