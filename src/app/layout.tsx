@@ -4,7 +4,7 @@ import "./globals.css"
 import { Navbar } from "./components/Navbar"
 import { FooterPage } from "./components/Footer"
 import { WixClientContextProvider } from "./context/wixContext"
-import FairyDustCursor from "./components/fairDust"
+import FairyDustCursor from "./components/fairyDust"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {

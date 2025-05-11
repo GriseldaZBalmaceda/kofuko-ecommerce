@@ -10,7 +10,6 @@ const ListPage = async ({ searchParams }: { searchParams: any }) => {
   const category = await wixClient.collections.getCollectionBySlug(
     searchParams.cat || "all-products"
   )
-  // const response = await wixClient.
 
   return (
     <div className="px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative">
@@ -29,7 +28,9 @@ const ListPage = async ({ searchParams }: { searchParams: any }) => {
         </div>
       </div>
       <Filter />
-      <h1 className="text-xl mt-12 font-semibold">Collectibles</h1>
+      <h1 className="text-xl mt-12 font-semibold">
+        {category.collection?.name}
+      </h1>
       <Suspense fallback="...loading">
         <ProductList
           categoryId={
