@@ -3,8 +3,8 @@ import Link from "next/link"
 import React from "react"
 import { wixClientServer } from "@/lib/wixClientServer"
 import { products } from "@wix/stores"
-
-const PRODUCT_PER_PAGE = 20
+import { Pagination } from "./Pagination"
+const PRODUCT_PER_PAGE = 10
 export const ProductList = async ({
   categoryId,
   limit,
@@ -23,17 +23,29 @@ export const ProductList = async ({
     .gt("priceData.price", (searchParams?.min || 0) - 0.01)
     .lt("priceData.price", searchParams?.max || 9999999)
     .limit(limit || PRODUCT_PER_PAGE)
+    .skip(
+      searchParams?.page
+        ? parseInt(searchParams.page) * (limit || PRODUCT_PER_PAGE)
+        : 0
+    )
   // .find()
 
-  const res = await productQuery.find()
+  let res = await productQuery.find()
+  let sortedItems: any = []
+  sortedItems = res.items
+  console.log(res.currentPage)
+  console.log(res.hasNext)
   // Sort the results manually as a fallback
-  const sortedItems = res.items.sort((a, b) => {
-    const priceA = a.priceData?.price || 0
-    const priceB = b.priceData?.price || 0
-    return searchParams?.sort?.startsWith("desc")
-      ? priceA - priceB
-      : priceB - priceA
-  })
+  if (searchParams?.sort) {
+    sortedItems = res.items.sort((a, b) => {
+      const priceA = a.priceData?.price || 0
+      const priceB = b.priceData?.price || 0
+      return searchParams?.sort?.startsWith("asc")
+        ? priceB - priceA
+        : priceA - priceB
+    })
+  }
+
   return (
     <div className="flex gap-x-8 gap-y-16  flex-wrap">
       {sortedItems.map((product: products.Product) => (
@@ -75,6 +87,12 @@ export const ProductList = async ({
           </button>
         </Link>
       ))}
+
+      <Pagination
+        currentPage={res.currentPage || 0}
+        hasPrev={res.hasPrev()}
+        hasNext={res.hasNext()}
+      />
     </div>
   )
 }

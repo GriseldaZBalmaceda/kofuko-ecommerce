@@ -11,10 +11,7 @@ const HomePage = async () => {
       <div className="mt-24 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 ">
         <h1 className="text-2xl">Featured Products</h1>
         <Suspense fallback={"loading"}>
-          <ProductList
-            categoryId={"0ce3f462-97a8-b413-be74-35ccdc25918f"}
-            limit={4}
-          />
+          <ProductList categoryId={"0ce3f462-97a8-b413-be74-35ccdc25918f"} />
         </Suspense>
       </div>
       <div className="mt-24">
