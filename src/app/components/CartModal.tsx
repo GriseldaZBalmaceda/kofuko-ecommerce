@@ -1,9 +1,20 @@
 "use client"
 
 import Image from "next/image"
+import { useWixClient } from "../hooks/useWixClient"
+import { useEffect } from "react"
 
 export const CartModal = () => {
+  const wixClient = useWixClient()
   const cartItems = true
+
+  useEffect(() => {
+    const getCart = async () => {
+      const response = await wixClient.currentCart.getCurrentCart()
+      console.log(response)
+    }
+    getCart()
+  }, [wixClient])
   return (
     <div className=" w-max absolute p-4 rounded-md shadow shadow-[0_3px_10px_rgb(0,0,0,0.2)] bg-white top-12 right-0 flex flex-col gap-6 z-20">
       {!cartItems && <div className="text-cl">Cart is Empty</div>}
