@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "./components/Navbar";
 import { FooterPage } from "./components/Footer";
 import { WixClientContextProvider } from "./context/wixContext";
+import QueryProvider from "./providers/QueryProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <WixClientContextProvider>
-        <Navbar/>
-        {children}
-        <FooterPage/>
-        </WixClientContextProvider>
+        <QueryProvider>
+          <WixClientContextProvider>
+            <Navbar/>
+            {children}
+            <FooterPage/>
+          </WixClientContextProvider>
+        </QueryProvider>
         </body>
     </html>
   );
