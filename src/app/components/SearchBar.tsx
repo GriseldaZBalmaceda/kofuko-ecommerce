@@ -1,35 +1,57 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { useRouter } from "next/navigation"
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
-export const SearchBar = () => {
-  const router = useRouter()
+export const SearchBar = ({ className }: { className?: string }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [value, setValue] = useState(searchParams.get("name") || "");
+  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
-  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    console.log(formData, "formdata")
-    const name = formData.get("name") as string
-    console.log(name)
-    if (name) {
-      router.push(`/list?name=${name}`)
+  useEffect(() => {
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
     }
-  }
+
+    debounceTimer.current = setTimeout(() => {
+      if (value) {
+        router.push(`/list?name=${value}`);
+      } else {
+        router.push(`/list`);
+      }
+    }, 400);
+
+    return () => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+    };
+  }, [value, router]);
+
   return (
     <form
-      className="flex ic justify-between gap-4 bg-gray-100 p-2 rounded-md flex-1"
-      onSubmit={handleSearch}
+      className={`flex justify-between gap-4 bg-gray-100 p-2 rounded-md flex-1 ${className || ""}`}
+      onSubmit={(e) => e.preventDefault()}
     >
       <input
         type="text"
         placeholder="Search"
         className="flex-1 bg-transparent outline-none"
-        name="name"
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
       />
-      <button className="cursor-pointer">
-        <Image src="/search.png" width={16} height={16} alt=""></Image>
-      </button>
+      {value && (
+        <button
+          type="button"
+          className="cursor-pointer text-gray-400 hover:text-gray-600"
+          onClick={() => setValue("")}
+        >
+          x
+        </button>
+      )}
+      <Image src="/search.png" width={20} height={10} alt="" />
     </form>
-  )
-}
+  );
+};

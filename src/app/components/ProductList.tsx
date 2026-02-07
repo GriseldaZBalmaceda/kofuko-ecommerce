@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -10,13 +10,16 @@ const PRODUCT_PER_PAGE = 20;
 
 export const ProductList = ({
   categoryId,
+  name,
   limit,
 }: {
   categoryId?: string;
+  name?: string;
   limit?: number;
 }) => {
   const { data, isLoading, error } = useProducts({
     categoryId,
+    name,
     limit: limit || PRODUCT_PER_PAGE,
     enabled: true,
   });
@@ -41,7 +44,9 @@ export const ProductList = ({
   if (error) {
     return (
       <div className="text-center py-8">
-        <p className="text-red-500">Failed to load products. Please try again.</p>
+        <p className="text-red-500">
+          Failed to load products. Please try again.
+        </p>
       </div>
     );
   }
@@ -60,7 +65,8 @@ export const ProductList = ({
         <Link
           href={"/" + product.slug}
           className="w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]"
-          key={product._id}>
+          key={product._id}
+        >
           <div className="relative w-full h-80">
             {product.media?.items && (
               <Image
@@ -86,7 +92,7 @@ export const ProductList = ({
           </div>
           <div className="text-sm text-gray-500">
             {product.additionalInfoSections?.find(
-              (section: any) => section.title === "shortDesc"
+              (section: any) => section.title === "shortDesc",
             )?.description || ""}
           </div>
           <button className="rounded-2xl ring-1 ring-purple-950 py-2 px-4 text-xs w-max-content hover:bg-purple-950 hover:text-white">
